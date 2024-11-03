@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Fire</title>
+    <style>
+        /* Reset some basic elements */
+        body, h1, h2, h3, p, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+            height: 100vh; /* Full height of the viewport */
+            display: flex;
+            flex-direction: column; /* Align items vertically */
+        }
+
+        /* Header styles */
+        header {
+            background: #ff4500; /* Bright orange */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffe600; /* Bright yellow on hover */
+        }
+
+        /* Sign In Button Styling */
+        #openModalBtn {
+            padding: 10px 20px;
+            background: #4CAF50; /* Green background */
+            color: white; /* White text */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 16px; /* Font size */
+            transition: background 0.3s, transform 0.3s; /* Transition for hover effects */
+        }
+
+        #openModalBtn:hover {
+            background: #45a049; /* Darker green on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        #openModalBtn:active {
+            transform: scale(0.95); /* Slightly shrink on click */
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #fff;
+            color: #ff4500;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        button:hover {
+            background: #ff4500;
+            color: #fff;
+        }
+
+        /* Main content styles */
+        main {
+            padding: 20px;
+            flex: 1; /* Allow main to take remaining space */
+        }
+
+        .quote {
+            font-size: 24px; /* Larger font for the quote */
+            font-style: italic; /* Italic style for the quote */
+            text-align: center; /* Center the quote */
+            margin: 20px 0; /* Margin around the quote */
+            color: #555; /* Softer color for the quote */
+        }
+
+        .content-box {
+            display: flex;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            height: 300px; /* Set a fixed height for the content box */
+        }
+
+        .left-panel {
+            flex: 1;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .left-panel h3 {
+            margin-bottom: 15px;
+        }
+
+        .left-panel ul {
+            list-style-type: none;
+        }
+
+        .left-panel li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .left-panel li:last-child {
+            border-bottom: none;
+        }
+
+        /* Contact Section */
+        .contact-info {
+            display: none; /* Hide by default */
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 5% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Form styling */
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="date"],
+        form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #555;
+        }
+
+        /* Footer styles */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: #fff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Dragon Fire</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#contact" id="contactLink">Contact</a>
+            <a href="#about">About Us</a>
+            <button id="openModalBtn" aria-label="Sign in to your account">Sign Up</button>
+        </nav>
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+        <blockquote class="quote">“Wake Up to Reality”</blockquote>
+        <section class="content-box">
+            <div class="left-panel">
+                <h3><b>Menu</b></h3>
+                <ul>
+                    <li>Roles</li>
+                    <li>Events</li>
+                    <li>Members</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Contact Information Section -->
+        <section class="contact-info" id="contactInfo">
+            <h2>Contact Information</h2>
+            <p><strong>Address:</strong> 123 Dragon St, Fantasy City, FC 12345</p>
+            <p><strong>Phone:</strong> (123) 456-7890</p>
+            <p><strong>Email:</strong> dragonfireclub0@gmail.com</p>
+            <h3>Contact Us</h3>
+            <form id="contactForm">
+                <label for="contactName">Name:</label>
+                <input type="text" id="contactName" name="contactName" required>
+
+                <label for="contactEmail">Email:</label>
+                <input type="email" id="contactEmail" name="contactEmail" required>
+
+                <label for="contactMessage">Message:</label>
+                <textarea id="contactMessage" name="contactMessage" rows="4" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Registration Modal -->
+    <div id="registrationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Registration Form</h2>
+            <form id="registrationForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="dob">DOB:</label>
+                <input type="date" id="dob" name="dob" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="paNo">PA No:</label>
+                <input type="text" id="paNo" name="paNo" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Dragon Fire. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("registrationModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("openModalBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Toggle contact information display
+        document.getElementById("contactLink").onclick = function(event) {
+            event.preventDefault(); // Prevent default anchor click behavior
+            var contactInfo = document.getElementById("contactInfo");
+            // Toggle visibility
+            if (contactInfo.style.display === "none" || contactInfo.style.display === "") {
+                contactInfo.style.display = "block";
+            } else {
+                contactInfo.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
